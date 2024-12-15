@@ -195,12 +195,14 @@ async def account_login(bot: Client, m: Message):
                     f"**🎥 Video ID:** `{str(count).zfill(3)}`\n"
                     f"**📂 File Name:** `{name}.mkv`\n"
                     f"**📚 Batch:** `{raw_text0}`\n\n"
+                    f"**🎓 CAPTION:** `{raw_text3}`\n\n"
                     f"📢 **Join our channel for updates! @TARGETALLCOURSE **"
                 )
                 cc1 = (
                     f"**📁 PDF ID:** `{str(count).zfill(3)}`\n"
                     f"**📂 File Name:** `{name}.pdf`\n"
                     f"**📚 Batch:** `{raw_text0}`\n\n"
+                    f"**🎓 CAPTION:** `{raw_text3}`\n\n"
                     f"📢 **Join our channel for updates! @TARGETALLCOURSE **"
                 )
 
