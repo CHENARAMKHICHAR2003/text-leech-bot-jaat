@@ -203,7 +203,7 @@ async def account_login(bot: Client, m: Message):
            cc1 = (
                f"╭━━━━━━━━━━━╮\n"
                f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
-               f"╰━━━━━━━━━━━╯\n"
+               f"╰━━━━━━━━━━━╮\n"
                f"📁 𝐓ɪᴛʟᴇ : {name} ({raw_text0}) {raw_text3}.pdf\n\n"
                f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
                f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
@@ -214,134 +214,83 @@ async def account_login(bot: Client, m: Message):
                     try:
                         ka = await helper.download(url, name)
                         copy = await bot.send_document(chat_id=m.chat.id, document=ka, caption=cc1)
-                        count += 1
                         os.remove(ka)
-                        time.sleep(1)
-                    except FloodWait as e:
-                        await m.reply_text(str(e))
-                        time.sleep(e.x)
+                    except Exception as e:
+                        print(f"Error: {e}")
+                        await m.reply_text(f"∝ 𝐄𝐫𝐫𝐨𝐫 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 {name}.\nError: {str(e)}")
                         continue
-                elif ".pdf" in url:
+
+                elif "youtu" in url:
                     try:
-                        cmd = f'yt-dlp -o "{name}.pdf" "{url}"'
-                        download_cmd = f"{cmd} -R 25 --fragment-retries 25"
-                        os.system(download_cmd)
-                        copy = await bot.send_document(chat_id=m.chat.id, document=f'{name}.pdf', caption=cc1)
-                        count += 1
-                        os.remove(f'{name}.pdf')
-                    except FloodWait as e:
-                        await m.reply_text(str(e))
-                        time.sleep(e.x)
+                        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                        stdout, stderr = process.communicate()
+                        if process.returncode != 0:
+                            raise Exception(f"Error: {stderr.decode()}")
+                        await bot.send_document(
+                            chat_id=m.chat.id, document=f"{name}.mp4", caption=cc
+                        )
+                        os.remove(f"{name}.mp4")
+                    except Exception as e:
+                        print(f"Error: {e}")
+                        await m.reply_text(f"∝ 𝐄𝐫𝐫𝐨𝐫 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 {name}.\nError: {str(e)}")
                         continue
                 else:
-                    Show = f"❊⟱ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 ⟱❊ »\n\n📝 𝐍𝐚𝐦𝐞 » `{name}\n⌨ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`"
-                    prog = await m.reply_text(Show)
-                    res_file = await helper.download_video(url, cmd, name)
-                    filename = res_file
-                    await prog.delete(True)
-                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
-                    count += 1
-                    time.sleep(1)
+                    await m.reply_text(f"∝ 𝐍𝐨 𝐯𝐚𝐥𝐢𝐝 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐬𝐨𝐮𝐫𝐜𝐞 𝐟𝐨𝐮𝐧𝐝 𝐟𝐨𝐫 𝐥𝐢𝐧𝐤 {name}.")
+                    continue
+                count += 1
 
-                except Exception as e:
-                await m.reply_text(
-                    f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐮𝐩𝐭𝐞𝐝\n{str(e)}\n⌘ 𝐍𝐚𝐦𝐞 » {name}\n⌘ 𝐋𝐢𝐧𝐤 » `{url}`"
-                )
-                continue
+            # After processing all the links
+            await m.reply_text(f"∝ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐂𝐨𝐦𝐩𝐥𝐞𝐭𝐞. Total Links Processed: {len(links)}.")
 
     except Exception as e:
-        await m.reply_text(e)
-    await m.reply_text("✅ 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲 𝐃𝐨𝐧𝐞")
-
-print("""
-█░█░█ █▀█ █▀█ █▀▄ █▀▀ █▀█ ▄▀█ █▀▀ ▀█▀     ▄▀█ █▀ █░█ █░█ ▀█▀ █▀█ █▀ █░█   ░ █▀▀
-▀▄▀▄▀ █▄█ █▄█ █▄▀ █▄▄ █▀▄ █▀█ █▀░ ░█░     █▀█ ▄█ █▀█ █▄█ ░█░ █▄█ ▄█ █▀█   ▄ █▄█""")
-print("""✅ 𝐃𝐞𝐩𝐥𝐨𝐲 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲 ✅""")
-print("""✅ 𝐁𝐨𝐭 𝐖𝐨𝐫𝐤𝐢𝐧𝐠 ✅""")
-
-bot.run()
-if __name__ == "__main__":
-    asyncio.run(main())
-
-@bot.on_message(filters.command("help"))
-async def help_handler(bot: Client, m: Message):
-    help_text = """
-    🆘 **How to Use this Bot:**
-
-    1. **Send a .txt file** containing the download links (one per line).
-    2. **Follow the steps** to choose the desired quality and other options.
-    3. **Download starts** when the setup is complete.
-
-    📄 **Supported File Types:**
-    - You can send a `.txt` file with links.
-    - The bot will download the content as per your selected quality.
-    
-    🎬 **Available Resolutions:**
-    - 144p, 240p, 360p, 480p, 720p, 1080p
-
-    📌 **Contact for Support:**
-    - For issues, contact @TARGETALLCOURSE
-    
-    ✨ **Enjoy Your Downloads!**
-    """
-    await m.reply_text(help_text, disable_web_page_preview=True)
-
-@bot.on_message(filters.command("about"))
-async def about_handler(bot: Client, m: Message):
-    about_text = """
-    🤖 **About This Bot:**
-
-    This bot allows users to download videos from various platforms by providing URLs from a `.txt` file. 
-
-    ✅ **Features:**
-    - Supports multiple video quality options.
-    - Can handle various video hosting platforms.
-    - Easy-to-use interface with simple commands.
-
-    🛠 **Developer:**
-    - Bot developed by **CR CHOUDHARY ❤️**
-    - Maintained and regularly updated for better functionality.
-
-    📢 **Join for Updates:**
-    - [Join Our Channel](https://t.me/TARGETALLCOURSE)
-    
-    ✨ **Enjoy Your Experience!**
-    """
-    await m.reply_text(about_text, disable_web_page_preview=True)
+        await m.reply_text(f"∝ 𝐄𝐱𝐜𝐞𝐩𝐭𝐢𝐨𝐧 𝐨𝐜𝐜𝐮𝐫𝐫𝐞𝐝. Error: {str(e)}")
+        return
 
 @bot.on_message(filters.command("status"))
-async def status_handler(bot: Client, m: Message):
-    status_text = """
-    📊 **Bot Status:**
+async def status_check(bot: Client, m: Message):
+    # To get status about the bot
+    uptime = time.time() - bot.start_time
+    days = int(uptime // 86400)
+    hours = int((uptime % 86400) // 3600)
+    minutes = int((uptime % 3600) // 60)
+    seconds = int(uptime % 60)
 
-    ✅ **Bot is running smoothly.**
-    ✅ **All functionalities are working as expected.**
-    ✅ **Your download requests are queued and processed.**
+    await m.reply_text(
+        f"🏷️ Bot Status:\n"
+        f"⚡️ Uptime: {days} days, {hours} hours, {minutes} minutes, {seconds} seconds\n"
+        f"🖥️ Active Connections: {len(bot.get_chat_members(m.chat.id))}\n"
+        f"💬 Messages Processed: {bot.messages_processed}\n"
+        f"🌐 Current URL: https://text-leech-bot-for-render.onrender.com/"
+    )
 
-    🕐 Current time: {time.ctime()}
+@bot.on_message(filters.command("help"))
+async def help_command(bot: Client, m: Message):
+    await m.reply_text(
+        "🤖 𝐇𝐞𝐥𝐩 𝐂𝐨𝐦𝐦𝐚𝐧𝐝:\n"
+        "1. **/start** - Start the bot and get the introduction message.\n"
+        "2. **/upload** - Upload a `.txt` file with download links.\n"
+        "3. **/stop** - Stop the bot.\n"
+        "4. **/status** - Check the bot's status and uptime.\n"
+        "5. **/help** - Show this help message."
+    )
 
-    🛠 **Bot maintained by:**
-    - CR CHOUDHARY ❤️
+async def shutdown():
+    await stop_bot()
+    print("Bot is shutting down...")
 
-    📢 **Join Our Updates Channel:**
-    - [Join Now](https://t.me/TARGETALLCOURSE)
-    """
-    await m.reply_text(status_text, disable_web_page_preview=True)
-
-@bot.on_message(filters.command("restart"))
-async def restart_handler(bot: Client, m: Message):
-    await m.reply_text("♻️ **Bot is restarting...**")
-    time.sleep(2)  # Simulate restart delay
-    os.execl(sys.executable, sys.executable, *sys.argv)
-
-# A helper function to send a progress bar
-async def send_progress(progress, total, m, status_msg):
-    bar = progress_bar(progress, total)
-    status_text = f"{status_msg}\n{bar} {progress}/{total}"
-    await m.edit(status_text)
-
-# Start the asyncio loop to run the bot and web server
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
 
+    # Set start time for uptime tracking
+    bot.start_time = time.time()
+    bot.messages_processed = 0  # Initialize messages_processed count
+
+    try:
+        loop.run_until_complete(main())
+    except KeyboardInterrupt:
+        loop.run_until_complete(shutdown())
+    finally:
+        loop.close()
+
+bot.run()
+        
