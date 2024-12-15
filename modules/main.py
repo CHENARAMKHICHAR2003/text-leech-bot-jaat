@@ -208,29 +208,40 @@ async def account_login(bot: Client, m: Message):
             else:
                 cmd = f'yt-dlp -f "{ytf}" "{url}" -o "{name}.mp4"'
 
-            try:  
-                
-                cc = (
-    f"**🎥 Video ID:** `{str(count).zfill(3)}`\n"
-    f"**📂 File Name:** `{name}.mkv`\n"
-    f"**📚 Batch:** `{raw_text0}`\n\n"
-    f"📢 **Join our channel for updates!**"
-)
+            try:
+    cc = (
+        f"**🎥 Video ID:** `{str(count).zfill(3)}`\n"
+        f"**📂 File Name:** `{name}.mkv`\n"
+        f"**📚 Batch:** `{raw_text0}`\n\n"
+        f"📢 **Join our channel for updates!**"
+    )
 
-cc1 = (
-    f"**📁 PDF ID:** `{str(count).zfill(3)}`\n"
-    f"**📂 File Name:** `{name}.pdf`\n"
-    f"**📚 Batch:** `{raw_text0}`\n\n"
-    f"📢 **Join our channel for updates!**"
-)
+    cc1 = (
+        f"**📁 PDF ID:** `{str(count).zfill(3)}`\n"
+        f"**📂 File Name:** `{name}.pdf`\n"
+        f"**📚 Batch:** `{raw_text0}`\n\n"
+        f"📢 **Join our channel for updates!**"
+    )
 
-# Buttons
-buttons = InlineKeyboardMarkup(
-    [
-        [InlineKeyboardButton("📢 Join Channel", url="https://t.me/TARGETALLCOURSE")]
-    ]
-)
-                if "drive" in url:
+    # Buttons
+    buttons = InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton("📢 Join Channel", url="https://t.me/TARGETALLCOURSE")]
+        ]
+    )
+    if "drive" in url:
+        try:
+            ka = await helper.download(url, name)
+            copy = await bot.send_document(chat_id=m.chat.id, document=ka, caption=cc1)
+            count += 1
+            os.remove(ka)
+            time.sleep(1)
+        except FloodWait as e:
+            await m.reply_text(str(e))
+            time.sleep(e.x)
+            continue
+    # Rest of your code...
+                    if "drive" in url:
                     try:
                         ka = await helper.download(url, name)
                         copy = await bot.send_document(chat_id=m.chat.id,document=ka, caption=cc1)
