@@ -76,7 +76,7 @@ async def account_login(bot: Client, m: Message):
                 [
                     InlineKeyboardButton("✜ 𝐉𝐨𝐢𝐧 𝐔𝐩𝐃𝐚𝐭𝐞 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 ✜" ,url=f"https://t.me/TARGETALLCOURSE") ],
                     [
-                    InlineKeyboardButton("✜ 𝗔𝘀𝗵𝘂𝘁𝗼𝘀𝗵𝗚𝗼𝘀𝘄𝗮𝗺𝗶𝟮𝟰 ✜" ,url="https://t.me/free_course2_bot") ],
+                    InlineKeyboardButton("✜ CR CHOUDHARY ❤️ ✜" ,url="https://t.me/free_course2_bot") ],
                     [
                     InlineKeyboardButton("🦋 𝐅𝐨𝐥𝐥𝐨𝐰 𝐌𝐞 🦋" ,url="https://t.me/TARGETALLCOURSE") ]                               
             ]))
@@ -213,7 +213,7 @@ async def account_login(bot: Client, m: Message):
                     f"╭━━━━━━━━━━━╮\n"
                     f"💫 𝐕ɪᴅᴇᴏ 𝐈𝐃 : `{str(count).zfill(4)}`\n"
                     f"╰━━━━━━━━━━━╯\n"
-                    f"📁 𝐓ɪᴛʟᴇ : {name}{MR}.mkv\n\n"
+                    f"📁 𝐓ɪᴛʟᴇ : {name}CRCHOUDHARY❣️.mkv\n\n"
                     f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
                     f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
                     f"🔗 **[Join My Channel](https://t.me/TARGETALLCOURSE)**"
@@ -222,7 +222,7 @@ async def account_login(bot: Client, m: Message):
                     f"╭━━━━━━━━━━━╮\n"
                     f"💫 𝐏𝐃𝐅 𝐈𝐃 : `{str(count).zfill(4)}`\n"
                     f"╰━━━━━━━━━━━╮\n"
-                    f"📁 𝐓ɪᴛʟᴇ : {name}{MR}.pdf\n\n"
+                    f"📁 𝐓ɪᴛʟᴇ : {name}{MR}CR CHOUDHARY.pdf\n\n"
                     f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
                     f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
                     f"🔗 **[Join My Channel](https://t.me/TARGETALLCOURSE)**"
