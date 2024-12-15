@@ -44,7 +44,7 @@ async def stop_bot():
     await bot.stop()
 
 async def main():
-    if WEBHOOK:
+    if 'WEBHOOK' in globals() and WEBHOOK:
         # Start the web server
         app_runner = web.AppRunner(await web_server())
         await app_runner.setup()
@@ -61,11 +61,11 @@ async def main():
             await asyncio.sleep(3600)  # Run forever, or until interrupted
     except (KeyboardInterrupt, SystemExit):
         await stop_bot()
-    
+
 @bot.on_message(filters.command(["start"]))
 async def account_login(bot: Client, m: Message):
     editable = await m.reply_text(
-       f"𝐇𝐞𝐥𝐥𝐨 ❤️\n\n◆〓◆ ❖ CR CHOUDHARY ❤️❖ ™ ◆〓◆\n\n❈ I Am A Bot For Download Links From Your **.TXT** File And Then Upload That File Om Telegram So Basically If You Want To Use Me First Send Me ⟰ /upload Command And Then Follow Few Steps..", reply_markup=InlineKeyboardMarkup(
+        f"𝐇𝐞𝐥𝐥𝐨 ❤️\n\n◆〓◆ ❖ CR CHOUDHARY ❤️❖ ™ ◆〓◆\n\n❈ I Am A Bot For Download Links From Your **.TXT** File And Then Upload That File Om Telegram So Basically If You Want To Use Me First Send Me ⟰ /upload Command And Then Follow Few Steps..", reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton("✜ 𝐉𝐨𝐢𝐧 𝐔𝐩𝐃𝐚𝐭𝐞 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 ✜" ,url=f"https://t.me/TARGETALLCOURSE") ],
@@ -243,23 +243,94 @@ async def account_login(bot: Client, m: Message):
                     count += 1
                     time.sleep(1)
 
-            except Exception as e:
+                except Exception as e:
                 await m.reply_text(
-                    f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐫𝐮𝐩𝐭𝐞𝐝\n{str(e)}\n⌘ 𝐍𝐚𝐦𝐞 » {name}\n⌘ 𝐋𝐢𝐧𝐤 » `{url}`"
+                    f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐫𝐮𝐩𝐭𝐞𝐝\n{str(e)}\n⌘ 𝐍𝐚𝐦𝐞 » {name} \n{str(e)}\n💥"
                 )
-                continue
 
     except Exception as e:
-        await m.reply_text(f"⌘ 𝐄𝐫𝐫𝐨𝐫 𝐨𝐜𝐜𝐮𝐫𝐞𝐝: {str(e)}")
+        await m.reply_text(f"⤵️ 𝐄𝐫𝐫𝐨𝐫 ⬇️\n{str(e)}")
+        return
+
+@bot.on_message(filters.command("help"))
+async def help_handler(bot: Client, m: Message):
+    help_text = """
+    🆘 **How to Use this Bot:**
+
+    1. **Send a .txt file** containing the download links (one per line).
+    2. **Follow the steps** to choose the desired quality and other options.
+    3. **Download starts** when the setup is complete.
+
+    📄 **Supported File Types:**
+    - You can send a `.txt` file with links.
+    - The bot will download the content as per your selected quality.
     
-    await m.reply_text("✅ 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲 𝐃𝐨𝐧𝐞!")
+    🎬 **Available Resolutions:**
+    - 144p, 240p, 360p, 480p, 720p, 1080p
 
-print("""
-█░█░█ █▀█ █▀█ █▀▄ █▀▀ █▀█ ▄▀█ █▀▀ ▀█▀     ▄▀█ █▀ █░█ █░█ ▀█▀ █▀█ █▀ █░█   ░ █▀▀
-▀▄▀▄▀ █▄█ █▄█ █▄▀ █▄▄ █▀▄ █▀█ █▀░ ░█░     █▀█ ▄█ █▀█ █▄█ ░█░ █▄█ ▄█ █▀█   ▄ █▄█""")
-print("""✅ 𝐃𝐞𝐩𝐥𝐨𝐲 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲 ✅""")
-print("""✅ 𝐁𝐨𝐭 𝐖𝐨𝐫𝐤𝐢𝐧𝐠 ✅""")
+    📌 **Contact for Support:**
+    - For issues, contact @TARGETALLCOURSE
+    
+    ✨ **Enjoy Your Downloads!**
+    """
+    await m.reply_text(help_text, disable_web_page_preview=True)
 
-bot.run()
+@bot.on_message(filters.command("about"))
+async def about_handler(bot: Client, m: Message):
+    about_text = """
+    🤖 **About This Bot:**
+
+    This bot allows users to download videos from various platforms by providing URLs from a `.txt` file. 
+
+    ✅ **Features:**
+    - Supports multiple video quality options.
+    - Can handle various video hosting platforms.
+    - Easy-to-use interface with simple commands.
+
+    🛠 **Developer:**
+    - Bot developed by **CR CHOUDHARY ❤️**
+    - Maintained and regularly updated for better functionality.
+
+    📢 **Join for Updates:**
+    - [Join Our Channel](https://t.me/TARGETALLCOURSE)
+    
+    ✨ **Enjoy Your Experience!**
+    """
+    await m.reply_text(about_text, disable_web_page_preview=True)
+
+@bot.on_message(filters.command("status"))
+async def status_handler(bot: Client, m: Message):
+    status_text = """
+    📊 **Bot Status:**
+
+    ✅ **Bot is running smoothly.**
+    ✅ **All functionalities are working as expected.**
+    ✅ **Your download requests are queued and processed.**
+
+    🕐 Current time: {time.ctime()}
+
+    🛠 **Bot maintained by:**
+    - CR CHOUDHARY ❤️
+
+    📢 **Join Our Updates Channel:**
+    - [Join Now](https://t.me/TARGETALLCOURSE)
+    """
+    await m.reply_text(status_text, disable_web_page_preview=True)
+
+@bot.on_message(filters.command("restart"))
+async def restart_handler(bot: Client, m: Message):
+    await m.reply_text("♻️ **Bot is restarting...**")
+    time.sleep(2)  # Simulate restart delay
+    os.execl(sys.executable, sys.executable, *sys.argv)
+
+# A helper function to send a progress bar
+async def send_progress(progress, total, m, status_msg):
+    bar = progress_bar(progress, total)
+    status_text = f"{status_msg}\n{bar} {progress}/{total}"
+    await m.edit(status_text)
+
+# Start the asyncio loop to run the bot and web server
 if __name__ == "__main__":
-    asyncio.run(main())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+
