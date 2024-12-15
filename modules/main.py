@@ -210,8 +210,30 @@ async def account_login(bot: Client, m: Message):
 
             try:  
                 
-                cc = f'**[ 🎥 ] Vid_ID:** {str(count).zfill(3)}.** {𝗻𝗮𝗺𝗲𝟭}{MR}.mkv\n✉️ 𝐁𝐚𝐭𝐜𝐡 » **{raw_text0}**'
-                cc1 = f'**[ 📁 ] Pdf_ID:** {str(count).zfill(3)}. {𝗻𝗮𝗺𝗲𝟭}{MR}.pdf \n✉️ 𝐁𝐚𝐭𝐜𝐡 » **{raw_text0}**'
+                cc = (
+    f"**🎥 Video ID:** `{str(count).zfill(3)}`\n"
+    f"**📂 File Name:** `{name1[:60]}.mkv`\n"
+    f"**📚 Batch:** `{raw_text0}`\n\n"
+    f"📢 **Join our channel for updates!**"
+)
+
+cc1 = (
+    f"**📁 PDF ID:** `{str(count).zfill(3)}`\n"
+    f"**📂 File Name:** `{name1[:60]}.pdf`\n"
+    f"**📚 Batch:** `{raw_text0}`\n\n"
+    f"📢 **Join our channel for updates!**"
+)
+
+buttons = InlineKeyboardMarkup(
+    [
+        [InlineKeyboardButton("📢 Join Channel", url="https://t.me/TARGETALLCOURSE")]
+    ]
+)
+
+# Example usage:
+# When sending a document or video, include the `reply_markup=buttons` parameter
+await bot.send_document(chat_id=m.chat.id, document=f'{name}.pdf', caption=cc1, reply_markup=buttons)
+await bot.send_video(chat_id=m.chat.id, video=f'{name}.mp4', caption=cc, reply_markup=buttons) 
                 if "drive" in url:
                     try:
                         ka = await helper.download(url, name)
