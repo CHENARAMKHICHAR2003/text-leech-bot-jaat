@@ -204,7 +204,7 @@ async def account_login(bot: Client, m: Message):
             cc1 = (
                f"╭━━━━━━━━━━━╮\n"
                f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
-               f"╰━━━━━━━━━━━╮\n"
+               f"╰━━━━━━━━━━━╯\n"
                f"📁 𝐓ɪᴛʟᴇ : {name} ({raw_text0}) {raw_text3}.pdf\n\n"
                f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
                f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
@@ -259,6 +259,6 @@ async def status_check(bot: Client, m: Message):
     await m.reply_text(f"∝ **Bot Status:**\n\n"
                        f"💼 **Uptime**: {days} Days, {hours} Hours, {minutes} Minutes, {seconds} Seconds\n\n"
                        f"🌐 **Total Links Processed**: {helper.processed_links}")
-   
+
 if __name__ == "__main__":
     asyncio.run(main())
