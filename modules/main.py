@@ -1,20 +1,26 @@
 import os
 import re
 import sys
+import json
 import time
 import asyncio
 import requests
 import subprocess
-from aiohttp import ClientSession, web
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from pyrogram.errors import FloodWait
-from pyrogram.errors.exceptions.bad_request_400 import StickerEmojiInvalid
-from pyromod import listen
-from subprocess import getstatusoutput
+
+import core as helper
 from utils import progress_bar
 from vars import API_ID, API_HASH, BOT_TOKEN
-import core as helper
+from aiohttp import ClientSession
+from pyromod import listen
+from subprocess import getstatusoutput
+from aiohttp import web
+
+from pyrogram import Client, filters
+from pyrogram.types import Message
+from pyrogram.errors import FloodWait
+from pyrogram.errors.exceptions.bad_request_400 import StickerEmojiInvalid
+from pyrogram.types.messages_and_media import message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 # Initialize the bot
 bot = Client(
@@ -44,7 +50,7 @@ async def stop_bot():
     await bot.stop()
 
 async def main():
-    if 'WEBHOOK' in globals() and WEBHOOK:
+    if WEBHOOK:
         # Start the web server
         app_runner = web.AppRunner(await web_server())
         await app_runner.setup()
@@ -65,15 +71,15 @@ async def main():
 @bot.on_message(filters.command(["start"]))
 async def account_login(bot: Client, m: Message):
     editable = await m.reply_text(
-        f"𝐇𝐞𝐥𝐥𝐨 ❤️\n\n◆〓◆ ❖ CR CHOUDHARY ❤️❖ ™ ◆〓◆\n\n❈ I Am A Bot For Download Links From Your **.TXT** File And Then Upload That File On Telegram. If You Want To Use Me First Send Me ⟰ /upload Command And Then Follow Few Steps..", 
-        reply_markup=InlineKeyboardMarkup(
+       f"𝐇𝐞𝐥𝐥𝐨 ❤️\n\n◆〓◆ ❖ CR CHOUDHARY ❤️❖ ™ ◆〓◆\n\n❈ I Am A Bot For Download Links From Your **.TXT** File And Then Upload That File Om Telegram So Basically If You Want To Use Me First Send Me ⟰ /upload Command And Then Follow Few Steps..", reply_markup=InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("✜ 𝐉𝐨𝐢𝐧 𝐔𝐩𝐝𝐚𝐭𝐞 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 ✜", url="https://t.me/TARGETALLCOURSE")],
-                [InlineKeyboardButton("✜ CR CHOUDHARY ❤️ ✜", url="https://t.me/free_course2_bot")],
-                [InlineKeyboardButton("🦋 𝐅𝐨𝐥𝐥𝐨𝐰 𝐌𝐞 🦋", url="https://t.me/TARGETALLCOURSE")]
-            ]
-        )
-    )
+                [
+                    InlineKeyboardButton("✜ 𝐉𝐨𝐢𝐧 𝐔𝐩𝐃𝐚𝐭𝐞 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 ✜" ,url=f"https://t.me/TARGETALLCOURSE") ],
+                    [
+                    InlineKeyboardButton("✜ CR CHOUDHARY ❤️ ✜" ,url="https://t.me/free_course2_bot") ],
+                    [
+                    InlineKeyboardButton("🦋 𝐅𝐨𝐥𝐥𝐨𝐰 𝐌𝐞 🦋" ,url="https://t.me/TARGETALLCOURSE") ]                               
+            ]))
 
 @bot.on_message(filters.command("stop"))
 async def restart_handler(_, m):
@@ -90,19 +96,19 @@ async def account_login(bot: Client, m: Message):
     path = f"./downloads/{m.chat.id}"
 
     try:
-        with open(x, "r") as f:
-            content = f.read()
-        content = content.split("\n")
-        links = []
-        for i in content:
-            links.append(i.split("://", 1))
-        os.remove(x)
-    except Exception as e:
-        await m.reply_text(f"∝ 𝐈𝐧𝐯𝐚𝐥𝐢𝐝 𝐟𝐢𝐥𝐞 𝐢𝐧𝐩𝐮𝐭.\nError: {str(e)}")
-        os.remove(x)
-        return
-
-    await editable.edit(f"∝ 𝐓𝐨𝐭𝐚𝐥 𝐋𝐢𝐧𝐤 𝐅𝐨𝐮𝐧𝐝: 🔗 **{len(links)}**\n\n𝐒𝐞𝐧𝐝 𝐅𝐫𝐨𝐦 𝐖𝐡𝐞𝐫𝐞 𝐘𝐨𝐮 𝐖𝐚𝐧𝐭 𝐓𝐨 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐈𝐧𝐢𝐭𝐚𝐥 𝐢𝐬 **1**")
+       with open(x, "r") as f:
+           content = f.read()
+       content = content.split("\n")
+       links = []
+       for i in content:
+           links.append(i.split("://", 1))
+       os.remove(x)
+    except:
+           await m.reply_text("∝ 𝐈𝐧𝐯𝐚𝐥𝐢𝐝 𝐟𝐢𝐥𝐞 𝐢𝐧𝐩𝐮𝐭.")
+           os.remove(x)
+           return
+    
+    await editable.edit(f"∝ 𝐓𝐨𝐭𝐚𝐥 𝐋𝐢𝐧𝐤 𝐅𝐨𝐮𝐧𝐝 𝐀𝐫𝐞 🔗** **{len(links)}**\n\n𝐒𝐞𝐧𝐝 𝐅𝐫𝐨𝐦 𝐖𝐡𝐞𝐫𝐞 𝐘𝐨𝐮 𝐖𝐚𝐧𝐭 𝐓𝐨 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐈𝐧𝐢𝐭𝐚𝐥 𝐢𝐬 **1**")
     input0: Message = await bot.listen(editable.chat.id)
     raw_text = input0.text
     await input0.delete(True)
@@ -111,12 +117,11 @@ async def account_login(bot: Client, m: Message):
     input1: Message = await bot.listen(editable.chat.id)
     raw_text0 = input1.text
     await input1.delete(True)
-
+    
     await editable.edit("∝ 𝐄𝐧𝐭𝐞𝐫 𝐄𝐞𝐬𝐨𝐥𝐮𝐭𝐢𝐨𝐧 🎬\n☞ 144,240,360,480,720,1080\nPlease Choose Quality")
     input2: Message = await bot.listen(editable.chat.id)
     raw_text2 = input2.text
     await input2.delete(True)
-
     try:
         if raw_text2 == "144":
             res = "256x144"
@@ -130,34 +135,33 @@ async def account_login(bot: Client, m: Message):
             res = "1280x720"
         elif raw_text2 == "1080":
             res = "1920x1080" 
-        else:
+        else: 
             res = "UN"
-    except Exception as e:
-        res = "UN"
-        await m.reply_text(f"∝ 𝐄𝐧𝐭𝐞𝐫𝐞𝐝 𝐪𝐮𝐚𝐥𝐢𝐭𝐲 𝐢𝐬 𝐢𝐧𝐯𝐚𝐥𝐢𝐝. Error: {str(e)}")
-
+    except Exception:
+            res = "UN"
+    
     await editable.edit("✏️ Now Enter A Caption to add caption on your uploaded file")
     input3: Message = await bot.listen(editable.chat.id)
     raw_text3 = input3.text
     await input3.delete(True)
-
-    highlighter = f"️ ⁪⁬⁮⁮⁮"
-    MR = raw_text3 if raw_text3 != 'Robin' else highlighter
-
+    highlighter  = f"️ ⁪⁬⁮⁮⁮"
+    if raw_text3 == 'Robin':
+        MR = highlighter 
+    else:
+        MR = raw_text3
+   
     await editable.edit("🌄 Now send the Thumb url\nEg » https://graph.org/file/419c60736fbac058c9e50.jpg\n\n Or if don't want thumbnail send = no")
-    input6: Message = await bot.listen(editable.chat.id)
+    input6 = message = await bot.listen(editable.chat.id)
     raw_text6 = input6.text
     await input6.delete(True)
     await editable.delete()
 
-    thumb = raw_text6
+    thumb = input6.text
     if thumb.startswith("http://") or thumb.startswith("https://"):
         getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
         thumb = "thumb.jpg"
-    elif thumb.lower() == "no":
-        thumb = None
     else:
-        thumb = None
+        thumb == "no"
 
     if len(links) == 1:
         count = 1
@@ -166,99 +170,85 @@ async def account_login(bot: Client, m: Message):
 
     try:
         for i in range(count - 1, len(links)):
-            V = links[i][1].replace("file/d/","uc?export=download&id=").replace("www.youtube-nocookie.com/embed", "youtu.be").replace("?modestbranding=1", "").replace("/view?usp=sharing","")
+
+            V = links[i][1].replace("file/d/","uc?export=download&id=").replace("www.youtube-nocookie.com/embed", "youtu.be").replace("?modestbranding=1", "").replace("/view?usp=sharing","") # .replace("mpd","m3u8")
             url = "https://" + V
-
-            # Handle special cases
-            if "visionias" in url:
-                async with ClientSession() as session:
-                    async with session.get(url, headers={'User-Agent': 'Mozilla/5.0'}) as resp:
-                        text = await resp.text()
-                        url = re.search(r"(https://.*?playlist.m3u8.*?)\"", text).group(1)
-
-            elif 'videos.classplusapp' in url:
-                url = requests.get(f'https://api.classplusapp.com/cams/uploader/video/jw-signed-url?url={url}', headers={'x-access-token': 'your-token'}).json()['url']
-
-            elif '/master.mpd' in url:
-                id = url.split("/")[-2]
-                url = f"https://d26g5bnklkwsh4.cloudfront.net/{id}/master.m3u8"
 
             name1 = links[i][0].replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@", "").replace("*", "").replace(".", "").replace("https", "").replace("http", "").strip()
             name = f'{str(count).zfill(3)}) {name1[:60]}'
 
-            # yt-dlp quality selection
-            ytf = f"b[height<={raw_text2}][ext=mp4]/bv[height<={raw_text2}][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" if "youtu" in url else f"b[height<={raw_text2}]/bv[height<={raw_text2}]+ba/b/bv+ba"
-            cmd = f'yt-dlp -o "{name}.mp4" "{url}"' if "jw-prod" in url else f'yt-dlp -f "{ytf}" "{url}" -o "{name}.mp4"'
-
-            # More stylish error handling
-            cc = (
-               f"╭━━━━━━━━━━━╮\n"
-               f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
-               f"╰━━━━━━━━━━━╯\n"
-               f"📁 𝐓ɪᴛʟᴇ : {name} ({raw_text0}) {raw_text3}.mkv\n\n"
-               f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
-               f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
-               f"📢 ✨ **Join our channel for updates!** [JOIN NOW](https://t.me/TARGETALLCOURSE) ✨"
-           )
-
-            cc1 = (
-               f"╭━━━━━━━━━━━╮\n"
-               f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
-               f"╰━━━━━━━━━━━╯\n"
-               f"📁 𝐓ɪᴛʟᴇ : {name} ({raw_text0}) {raw_text3}.pdf\n\n"
-               f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
-               f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
-               f"📢 ✨ **Join our channel for updates!** [JOIN NOW](https://t.me/TARGETALLCOURSE) ✨"
-           )
-
-            if "drive" in url:
-                try:
-                    ka = await helper.download(url, name)
-                    copy = await bot.send_document(chat_id=m.chat.id, document=ka, caption=cc1)
-                    os.remove(ka)
-                except Exception as e:
-                    print(f"Error: {e}")
-                    await m.reply_text(f"∝ 𝐄𝐫𝐫𝐨𝐫 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 {name}.\nError: {str(e)}")
-                    continue
-
-            elif "youtu" in url:
-                try:
-                    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                    stdout, stderr = process.communicate()
-                    if process.returncode != 0:
-                        raise Exception(f"Error: {stderr.decode()}")
-                    await bot.send_document(
-                        chat_id=m.chat.id, document=f"{name}.mp4", caption=cc
-                    )
-                    os.remove(f"{name}.mp4")
-                except Exception as e:
-                    print(f"Error: {e}")
-                    await m.reply_text(f"∝ 𝐄𝐫𝐫𝐨𝐫 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 {name}.\nError: {str(e)}")
-                    continue
+            if "youtu" in url:
+                ytf = f"b[height<={raw_text2}][ext=mp4]/bv[height<={raw_text2}][ext=mp4]+ba[ext=m4a]/b[ext=mp4]"
             else:
-                await m.reply_text(f"∝ 𝐍𝐨 𝐯𝐚𝐥𝐢𝐝 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐬𝐨𝐮𝐫𝐜𝐞 𝐟𝐨𝐮𝐧𝐝 𝐟𝐨𝐫 𝐥𝐢𝐧𝐤 {name}.")
-                continue
-            count += 1
+                ytf = f"b[height<={raw_text2}]/bv[height<={raw_text2}]+ba/b/bv+ba"
 
-        # After processing all the links
-        await m.reply_text(f"∝ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐂𝐨𝐦𝐩𝐥𝐞𝐭𝐞. Total Links Processed: {len(links)}.")
+            if "jw-prod" in url:
+                cmd = f'yt-dlp -o "{name}.mp4" "{url}"'
+            else:
+                cmd = f'yt-dlp -f "{ytf}" "{url}" -o "{name}.mp4"'
 
+            try:
+                cc = (
+                    f"╭━━━━━━━━━━━╮\n"
+                    f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
+                    f"╰━━━━━━━━━━━╯\n"
+                    f"📁 𝐓ɪᴛʟᴇ : {name} ({raw_text0}) {raw_text3}.mkv\n\n"
+                    f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
+                    f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
+                    f"📢 ✨ **Join our channel for updates!** [TARGETALLCOURSE](https://t.me/TARGETALLCOURSE) ✨"
+                )
+                cc1 = (
+                    f"╭━━━━━━━━━━━╮\n"
+                    f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
+                    f"╰━━━━━━━━━━━╮\n"
+                    f"**📁 𝐓ɪᴛʟᴇ** : {name} ({raw_text0}) {raw_text3}.pdf\n\n"
+                    f"**📚 𝐂ᴏᴜʀꜱᴇ** : {raw_text0}\n\n"
+                    f"**📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒** : {raw_text3} ❤️\n\n"
+                    f"📢 ✨ **Join our channel for updates!** [TARGETALLCOURSE](https://t.me/TARGETALLCOURSE) ✨"
+                )
+
+                if "drive" in url:
+                    try:
+                        ka = await helper.download(url, name)
+                        copy = await bot.send_document(chat_id=m.chat.id, document=ka, caption=cc1)
+                        count += 1
+                        os.remove(ka)
+                        time.sleep(1)
+                    except FloodWait as e:
+                        await m.reply_text(str(e))
+                        time.sleep(e.x)
+                        continue
+                
+                elif ".pdf" in url:
+                    try:
+                        cmd = f'yt-dlp -o "{name}.pdf" "{url}"'
+                        download_cmd = f"{cmd} -R 25 --fragment-retries 25"
+                        os.system(download_cmd)
+                        copy = await bot.send_document(chat_id=m.chat.id, document=f'{name}.pdf', caption=cc1)
+                        count += 1
+                        os.remove(f'{name}.pdf')
+                    except FloodWait as e:
+                        await m.reply_text(str(e))
+                        time.sleep(e.x)
+                        continue
+                else:
+                    Show = f"❊⟱ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 ⟱❊ »\n\n📝 𝐍𝐚𝐦𝐞 » `{name}\n⌨ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 {url}**" 
+                    msg = await m.reply_text(Show)
+                    os.system(cmd)
+                    try:
+                        copy = await bot.send_video(chat_id=m.chat.id, video=f"{name}.mp4", caption=cc, thumb=thumb)
+                    except Exception as e:
+                        await m.reply_text(str(e))
+                        time.sleep(1)
+                    count += 1
+                    os.remove(f"{name}.mp4")
+                    time.sleep(1)
+            except Exception as e:
+                await m.reply_text(str(e))
+                time.sleep(1)
     except Exception as e:
-        await m.reply_text(f"∝ 𝐄𝐱𝐜𝐞𝐩𝐭𝐢𝐨𝐧 𝐨𝐜𝐜𝐮𝐫𝐫𝐞𝐝. Error: {str(e)}")
-        return
-
-@bot.on_message(filters.command("status"))
-async def status_check(bot: Client, m: Message):
-    # To get status about the bot
-    uptime = time.time() - bot.start_time
-    days = int(uptime // 86400)
-    hours = int((uptime % 86400) // 3600)
-    minutes = int((uptime % 3600) // 60)
-    seconds = int(uptime % 60)
-
-    await m.reply_text(f"∝ **Bot Status:**\n\n"
-                       f"💼 **Uptime**: {days} Days, {hours} Hours, {minutes} Minutes, {seconds} Seconds\n\n"
-                       f"🌐 **Total Links Processed**: {helper.processed_links}")
+        await m.reply_text(str(e))
+        time.sleep(1)
 
 if __name__ == "__main__":
     asyncio.run(main())
