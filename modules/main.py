@@ -211,21 +211,21 @@ async def account_login(bot: Client, m: Message):
             try:
                 cc = (
                     f"╭━━━━━━━━━━━╮\n"
-                    f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
+                    f"💫 𝐕ɪᴅᴇᴏ 𝐈𝐃 : `{str(count).zfill(4)}`\n"
                     f"╰━━━━━━━━━━━╯\n"
-                    f"📁 𝐓ɪᴛʟᴇ : {name} ({raw_text0}) {raw_text3}.mkv\n\n"
+                    f"📁 𝐓ɪᴛʟᴇ : {name}{MR}.mkv\n\n"
                     f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
-                    f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
-                    f"📢 ✨ **Join our channel for updates!** [TARGETALLCOURSE](https://t.me/TARGETALLCOURSE) ✨"
+                    f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {name1} ❤️\n\n"
+                    f"🔗 **[Join My Channel](https://t.me/TARGETALLCOURSE)**"
                 )
                 cc1 = (
                     f"╭━━━━━━━━━━━╮\n"
-                    f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
+                    f"💫 𝐏𝐃𝐅 𝐈𝐃 : `{str(count).zfill(4)}`\n"
                     f"╰━━━━━━━━━━━╮\n"
-                    f"**📁 𝐓ɪᴛʟᴇ** : {name} ({raw_text0}) {raw_text3}.pdf\n\n"
-                    f"**📚 𝐂ᴏᴜʀꜱᴇ** : {raw_text0}\n\n"
-                    f"**📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒** : {raw_text3} ❤️\n\n"
-                    f"📢 ✨ **Join our channel for updates!** [TARGETALLCOURSE](https://t.me/TARGETALLCOURSE) ✨"
+                    f"📁 𝐓ɪᴛʟᴇ : {name}{MR}.pdf\n\n"
+                    f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
+                    f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {name1} ❤️\n\n"
+                    f"🔗 **[Join My Channel](https://t.me/TARGETALLCOURSE)**"
                 )
 
                 if "drive" in url:
