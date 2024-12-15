@@ -65,15 +65,15 @@ async def main():
 @bot.on_message(filters.command(["start"]))
 async def account_login(bot: Client, m: Message):
     editable = await m.reply_text(
-        f"𝐇𝐞𝐥𝐥𝐨 ❤️\n\n◆〓◆ ❖ CR CHOUDHARY ❤️❖ ™ ◆〓◆\n\n❈ I Am A Bot For Download Links From Your **.TXT** File And Then Upload That File Om Telegram So Basically If You Want To Use Me First Send Me ⟰ /upload Command And Then Follow Few Steps..", reply_markup=InlineKeyboardMarkup(
+        f"𝐇𝐞𝐥𝐥𝐨 ❤️\n\n◆〓◆ ❖ CR CHOUDHARY ❤️❖ ™ ◆〓◆\n\n❈ I Am A Bot For Download Links From Your **.TXT** File And Then Upload That File On Telegram. If You Want To Use Me First Send Me ⟰ /upload Command And Then Follow Few Steps..", 
+        reply_markup=InlineKeyboardMarkup(
             [
-                [
-                    InlineKeyboardButton("✜ 𝐉𝐨𝐢𝐧 𝐔𝐩𝐃𝐚𝐭𝐞 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 ✜" ,url=f"https://t.me/TARGETALLCOURSE") ],
-                    [
-                    InlineKeyboardButton("✜ CR CHOUDHARY ❤️ ✜" ,url="https://t.me/free_course2_bot") ],
-                    [
-                    InlineKeyboardButton("🦋 𝐅𝐨𝐥𝐥𝐨𝐰 𝐌𝐞 🦋" ,url="https://t.me/TARGETALLCOURSE") ]                               
-            ]))
+                [InlineKeyboardButton("✜ 𝐉𝐨𝐢𝐧 𝐔𝐩𝐝𝐚𝐭𝐞 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 ✜", url="https://t.me/TARGETALLCOURSE")],
+                [InlineKeyboardButton("✜ CR CHOUDHARY ❤️ ✜", url="https://t.me/free_course2_bot")],
+                [InlineKeyboardButton("🦋 𝐅𝐨𝐥𝐥𝐨𝐰 𝐌𝐞 🦋", url="https://t.me/TARGETALLCOURSE")]
+            ]
+        )
+    )
 
 @bot.on_message(filters.command("stop"))
 async def restart_handler(_, m):
@@ -140,6 +140,7 @@ async def account_login(bot: Client, m: Message):
     input3: Message = await bot.listen(editable.chat.id)
     raw_text3 = input3.text
     await input3.delete(True)
+
     highlighter = f"️ ⁪⁬⁮⁮⁮"
     MR = raw_text3 if raw_text3 != 'Robin' else highlighter
 
@@ -200,7 +201,7 @@ async def account_login(bot: Client, m: Message):
                f"📢 ✨ **Join our channel for updates!** [JOIN NOW](https://t.me/TARGETALLCOURSE) ✨"
            )
 
-           cc1 = (
+            cc1 = (
                f"╭━━━━━━━━━━━╮\n"
                f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
                f"╰━━━━━━━━━━━╮\n"
@@ -210,37 +211,37 @@ async def account_login(bot: Client, m: Message):
                f"📢 ✨ **Join our channel for updates!** [JOIN NOW](https://t.me/TARGETALLCOURSE) ✨"
            )
 
-                if "drive" in url:
-                    try:
-                        ka = await helper.download(url, name)
-                        copy = await bot.send_document(chat_id=m.chat.id, document=ka, caption=cc1)
-                        os.remove(ka)
-                    except Exception as e:
-                        print(f"Error: {e}")
-                        await m.reply_text(f"∝ 𝐄𝐫𝐫𝐨𝐫 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 {name}.\nError: {str(e)}")
-                        continue
-
-                elif "youtu" in url:
-                    try:
-                        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                        stdout, stderr = process.communicate()
-                        if process.returncode != 0:
-                            raise Exception(f"Error: {stderr.decode()}")
-                        await bot.send_document(
-                            chat_id=m.chat.id, document=f"{name}.mp4", caption=cc
-                        )
-                        os.remove(f"{name}.mp4")
-                    except Exception as e:
-                        print(f"Error: {e}")
-                        await m.reply_text(f"∝ 𝐄𝐫𝐫𝐨𝐫 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 {name}.\nError: {str(e)}")
-                        continue
-                else:
-                    await m.reply_text(f"∝ 𝐍𝐨 𝐯𝐚𝐥𝐢𝐝 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐬𝐨𝐮𝐫𝐜𝐞 𝐟𝐨𝐮𝐧𝐝 𝐟𝐨𝐫 𝐥𝐢𝐧𝐤 {name}.")
+            if "drive" in url:
+                try:
+                    ka = await helper.download(url, name)
+                    copy = await bot.send_document(chat_id=m.chat.id, document=ka, caption=cc1)
+                    os.remove(ka)
+                except Exception as e:
+                    print(f"Error: {e}")
+                    await m.reply_text(f"∝ 𝐄𝐫𝐫𝐨𝐫 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 {name}.\nError: {str(e)}")
                     continue
-                count += 1
 
-            # After processing all the links
-            await m.reply_text(f"∝ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐂𝐨𝐦𝐩𝐥𝐞𝐭𝐞. Total Links Processed: {len(links)}.")
+            elif "youtu" in url:
+                try:
+                    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    stdout, stderr = process.communicate()
+                    if process.returncode != 0:
+                        raise Exception(f"Error: {stderr.decode()}")
+                    await bot.send_document(
+                        chat_id=m.chat.id, document=f"{name}.mp4", caption=cc
+                    )
+                    os.remove(f"{name}.mp4")
+                except Exception as e:
+                    print(f"Error: {e}")
+                    await m.reply_text(f"∝ 𝐄𝐫𝐫𝐨𝐫 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 {name}.\nError: {str(e)}")
+                    continue
+            else:
+                await m.reply_text(f"∝ 𝐍𝐨 𝐯𝐚𝐥𝐢𝐝 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐬𝐨𝐮𝐫𝐜𝐞 𝐟𝐨𝐮𝐧𝐝 𝐟𝐨𝐫 𝐥𝐢𝐧𝐤 {name}.")
+                continue
+            count += 1
+
+        # After processing all the links
+        await m.reply_text(f"∝ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐂𝐨𝐦𝐩𝐥𝐞𝐭𝐞. Total Links Processed: {len(links)}.")
 
     except Exception as e:
         await m.reply_text(f"∝ 𝐄𝐱𝐜𝐞𝐩𝐭𝐢𝐨𝐧 𝐨𝐜𝐜𝐮𝐫𝐫𝐞𝐝. Error: {str(e)}")
@@ -255,42 +256,9 @@ async def status_check(bot: Client, m: Message):
     minutes = int((uptime % 3600) // 60)
     seconds = int(uptime % 60)
 
-    await m.reply_text(
-        f"🏷️ Bot Status:\n"
-        f"⚡️ Uptime: {days} days, {hours} hours, {minutes} minutes, {seconds} seconds\n"
-        f"🖥️ Active Connections: {len(bot.get_chat_members(m.chat.id))}\n"
-        f"💬 Messages Processed: {bot.messages_processed}\n"
-        f"🌐 Current URL: https://text-leech-bot-for-render.onrender.com/"
-    )
-
-@bot.on_message(filters.command("help"))
-async def help_command(bot: Client, m: Message):
-    await m.reply_text(
-        "🤖 𝐇𝐞𝐥𝐩 𝐂𝐨𝐦𝐦𝐚𝐧𝐝:\n"
-        "1. **/start** - Start the bot and get the introduction message.\n"
-        "2. **/upload** - Upload a `.txt` file with download links.\n"
-        "3. **/stop** - Stop the bot.\n"
-        "4. **/status** - Check the bot's status and uptime.\n"
-        "5. **/help** - Show this help message."
-    )
-
-async def shutdown():
-    await stop_bot()
-    print("Bot is shutting down...")
-
+    await m.reply_text(f"∝ **Bot Status:**\n\n"
+                       f"💼 **Uptime**: {days} Days, {hours} Hours, {minutes} Minutes, {seconds} Seconds\n\n"
+                       f"🌐 **Total Links Processed**: {helper.processed_links}")
+   
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-
-    # Set start time for uptime tracking
-    bot.start_time = time.time()
-    bot.messages_processed = 0  # Initialize messages_processed count
-
-    try:
-        loop.run_until_complete(main())
-    except KeyboardInterrupt:
-        loop.run_until_complete(shutdown())
-    finally:
-        loop.close()
-
-bot.run()
-        
+    asyncio.run(main())
