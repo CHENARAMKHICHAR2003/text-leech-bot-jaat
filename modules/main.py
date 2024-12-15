@@ -190,23 +190,25 @@ async def account_login(bot: Client, m: Message):
             cmd = f'yt-dlp -o "{name}.mp4" "{url}"' if "jw-prod" in url else f'yt-dlp -f "{ytf}" "{url}" -o "{name}.mp4"'
 
             # More stylish error handling
-            try:
-                cc = (
-                    f"**🎥 Video ID:** `{str(count).zfill(3)}`\n"
-                    f"**📂 File Name:** `{name}.mkv`\n"
-                    f"**📚 Batch:** `{raw_text0}`\n\n"
-                    f"**🎓 CAPTION:** `{raw_text3}`\n\n"
-                    f"📢 **Join our channel for updates! @TARGETALLCOURSE **"
-                )
-                cc1 = (
-                    f"**📁 PDF ID:** `{str(count).zfill(3)}`\n"
-                    f"**📂 File Name:** `{name}.pdf`\n"
-                    f"**📚 Batch:** `{raw_text0}`\n\n"
-                    f"**🎓 CAPTION:** `{raw_text3}`\n\n"
-                    f"📢 **Join our channel for updates! @TARGETALLCOURSE **"
-                )
+            cc = (
+               f"╭━━━━━━━━━━━╮\n"
+               f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
+               f"╰━━━━━━━━━━━╯\n"
+               f"📁 𝐓ɪᴛʟᴇ : {name} ({raw_text0}) {raw_text3}.mkv\n\n"
+               f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
+               f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
+               f"📢 ✨ **Join our channel for updates!** [JOIN NOW](https://t.me/TARGETALLCOURSE) ✨"
+           )
 
-                buttons = InlineKeyboardMarkup([[InlineKeyboardButton("📢 Join Channel", url="https://t.me/TARGETALLCOURSE")]])
+           cc1 = (
+               f"╭━━━━━━━━━━━╮\n"
+               f"💫 𝐅ɪʟᴇ 𝐈𝐃 : `{str(count).zfill(3)}`\n"
+               f"╰━━━━━━━━━━━╯\n"
+               f"📁 𝐓ɪᴛʟᴇ : {name} ({raw_text0}) {raw_text3}.pdf\n\n"
+               f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
+               f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
+               f"📢 ✨ **Join our channel for updates!** [JOIN NOW](https://t.me/TARGETALLCOURSE) ✨"
+           )
 
                 if "drive" in url:
                     try:
