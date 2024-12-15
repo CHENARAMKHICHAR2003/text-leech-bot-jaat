@@ -215,7 +215,7 @@ async def account_login(bot: Client, m: Message):
                     f"╰━━━━━━━━━━━╯\n"
                     f"📁 𝐓ɪᴛʟᴇ : {name}{MR}.mkv\n\n"
                     f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
-                    f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {name1} ❤️\n\n"
+                    f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
                     f"🔗 **[Join My Channel](https://t.me/TARGETALLCOURSE)**"
                 )
                 cc1 = (
@@ -224,7 +224,7 @@ async def account_login(bot: Client, m: Message):
                     f"╰━━━━━━━━━━━╮\n"
                     f"📁 𝐓ɪᴛʟᴇ : {name}{MR}.pdf\n\n"
                     f"📚 𝐂ᴏᴜʀꜱᴇ : {raw_text0}\n\n"
-                    f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {name1} ❤️\n\n"
+                    f"📥 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝖡𝗒 : {raw_text3} ❤️\n\n"
                     f"🔗 **[Join My Channel](https://t.me/TARGETALLCOURSE)**"
                 )
 
